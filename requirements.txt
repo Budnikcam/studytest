@@ -1,4 +1,4 @@
-Flask>==2.3.2
+Flask==2.3.2
 flask-limit==2.0.5
 Flask-WTF==1.0.0
 Flask-Mail==0.10.0
