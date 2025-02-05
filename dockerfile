@@ -1,5 +1,5 @@
 # Используйте базовый образ Python
-FROM python:3.13.1
+FROM python:3.13.1-slim
 
 # Установите рабочую директорию
 WORKDIR /app
@@ -18,8 +18,8 @@ RUN pip install --upgrade pip && \
     pip install --no-cache-dir -r requirements.txt
 
 # Скопируйте остальную часть приложения
-COPY backend/ ./  
+COPY backend/ ./
 
 # Укажите команду для запуска приложения
-CMD ["python", "backend/app.py"]  # Убедитесь, что путь к app.py правильный
+CMD ["python", "app.py"]
 
