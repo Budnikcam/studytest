@@ -1,6 +1,6 @@
 Flask==2.3.2
 flask-limit==2.0.5
-Flask-WTF==1.0.0
+Flask-WTF==0.14.3
 Flask-Mail==0.10.0
 Flask-SQLAlchemy==3.0.0
 Flask-Login==0.6.3
