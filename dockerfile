@@ -2,7 +2,7 @@
 FROM python:3.13.1
 
 # Установите рабочую директорию
-WORKDIR /backend/app.py ./
+WORKDIR /backend/app.py
 
 # Скопируйте файл зависимостей в контейнер
 COPY requirements.txt ./
