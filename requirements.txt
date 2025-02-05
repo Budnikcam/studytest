@@ -132,7 +132,7 @@ vonage-verify-legacy==1.0.1
 vonage-video==1.1.0
 vonage-voice==1.1.2
 wcwidth==0.2.13
-Werkzeug==1.0.1
+Werkzeug>=3.1
 wheel==0.45.1
 WTForms==3.2.1
 yarl==1.18.3
