@@ -22,4 +22,4 @@ COPY backend/ ./
 
 # Укажите команду для запуска приложения
 CMD ["python", "app.py"]
-
+EXPOSE 5000
