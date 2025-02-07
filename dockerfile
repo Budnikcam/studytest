@@ -21,5 +21,5 @@ RUN pip install --upgrade pip && \
 COPY backend/ ./
 
 # Укажите команду для запуска приложения
-CMD ["fastapi", "run", "main.py", "--port", "8000", "--proxy-headers", "python", "app.py"]
+CMD ["fastapi", "--port", "8000", "--proxy-headers", "python", "app.py"]
 EXPOSE 5000
