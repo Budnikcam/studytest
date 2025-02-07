@@ -7,7 +7,7 @@ from models import db, User, Lecture
 import random
 import os
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='templates')
 app.config['SECRET_KEY'] = 'your_secret_key'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///your_database.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -42,14 +42,13 @@ def upload_lecture():
             filename = secure_filename(file.filename)
             filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
             file.save(filepath)
-            new_lecture_file = lectures(lecture_id=new_lecture.id, filename=filename, filepath=filepath)
+            new_lecture_file = Lecture(lecture_id=new_lecture.id, filename=filename, filepath=filepath)  # Исправлено на Lecture
             db.session.add(new_lecture_file)
             flash(f'Лекция "{title}" загружена успешно!', 'success')
         else:
             flash('Ошибка загрузки файла. Убедитесь, что файл имеет правильный формат.', 'danger')
     db.session.commit()
     return redirect(url_for('lectures'))
-
 
 @app.route('/export_users')
 @login_required
@@ -60,19 +59,17 @@ def export_users():
 
     users = User.query.all()  
 
-    
     def generate():
         data = [['ID', 'Username', 'Email']]  
         for user in users:
-            data.append([user.id, user.email])  
+            data.append([user.id, user.username, user.email])  # Добавлено поле username
 
-        
+        # Исправлено на использование Response из flask
         csv_writer = csv.writer(Response(), quoting=csv.QUOTE_MINIMAL)
         for row in data:
             csv_writer.writerow(row)
 
     return Response(generate(), mimetype='text/csv', headers={"Content-Disposition": "attachment;filename=users.csv"})
-
 
 @app.route('/')
 def home():
@@ -91,7 +88,6 @@ def register():
 def login():
     form = LoginForm()
     if form.validate_on_submit():
-        
         flash('Вы вошли в систему!', 'success')
         return redirect(url_for('home'))
 
@@ -116,8 +112,8 @@ def profile():
 @login_required  
 def logout():
     flash('Вы вышли из системы.', 'info')
+    logout_user()  # Добавлено для выхода из системы
     return redirect(url_for('login'))
-
 
 @app.route('/lectures')
 @login_required
@@ -125,11 +121,10 @@ def lectures():
     lectures = Lecture.query.all()
     return render_template('lectures.html', lectures=lectures)
 
-
 @app.route('/download/<int:lecture_file_id>')
 @login_required
 def download_lecture(lecture_file_id):
-    lecture_file = lectures.query.get_or_404(lecture_file_id)
+    lecture_file = Lecture.query.get_or_404(lecture_file_id)  # Исправлено на Lecture
     return send_from_directory(app.config['UPLOAD_FOLDER'], lecture_file.filename, as_attachment=True)
 
 @app.route('/delete_lecture/<int:lecture_id>', methods=['POST'])
@@ -148,8 +143,7 @@ def delete_lecture(lecture_id):
             flash('Лекция не найдена.', 'danger')
     return redirect(url_for('lectures'))
 
-
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
-    app.run(debug=True)
+    app.run()
