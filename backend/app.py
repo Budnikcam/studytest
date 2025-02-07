@@ -79,10 +79,17 @@ def home():
 def register():
     form = RegistrationForm()
     if form.validate_on_submit():
-        flash('Регистрация успешна!', 'success')
-        return redirect(url_for('home'))
-
+        try:
+            user = User(username=form.username.data, email=form.email.data, password=form.password.data)
+            db.session.add(user)
+            db.session.commit()
+            flash('Регистрация успешна!', 'success')
+            return redirect(url_for('home'))
+        except Exception as e:
+            db.session.rollback()  # Откат транзакции в случае ошибки
+            flash(f'Произошла ошибка при регистрации: {str(e)}', 'danger')
     return render_template('register.html', form=form)
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
