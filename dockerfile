@@ -1,6 +1,9 @@
 # Используйте базовый образ Python
 FROM python:3.13.1-slim
 
+ENV PYTHONUNBUFFERED=1 \
+    PIP_DISABLE_PIP_VERSION_CHECK=on
+
 # Установите рабочую директорию
 WORKDIR /app
 
@@ -21,5 +24,5 @@ RUN pip install --upgrade pip && \
 COPY backend/ ./
 
 # Укажите команду для запуска приложения
-CMD ["python", "app.py"]
+CMD ["fastapi", "run", "main.py", "--port", "8000", "--proxy-headers", "python", "app.py"]
 EXPOSE 5000
