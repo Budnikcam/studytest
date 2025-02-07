@@ -1,9 +1,6 @@
 # Используйте базовый образ Python
 FROM python:3.13.1-slim
 
-ENV PYTHONUNBUFFERED=1 \
-    PIP_DISABLE_PIP_VERSION_CHECK=on
-
 # Установите рабочую директорию
 WORKDIR /app
 
