@@ -15,8 +15,7 @@ RUN apt-get update && apt-get install -y \
 
 # Обновите pip и установите зависимости
 RUN pip install --upgrade pip && \
-    pip install --no-cache-dir -r requirements.txt \
-    pip install email-validator
+    pip install --no-cache-dir -r requirements.txt
 
 # Скопируйте остальную часть приложения
 COPY backend/ ./
