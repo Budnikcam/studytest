@@ -3,6 +3,7 @@ from werkzeug.utils import secure_filename
 from flask import Flask, render_template, redirect, url_for, flash, request, send_from_directory, Response
 from flask_login import LoginManager, current_user, login_user, logout_user, login_required
 from forms import RegistrationForm, LoginForm
+from flask_migrate import Migrate
 from models import db, User, Lecture
 import random
 import os
@@ -13,6 +14,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URI', 'sqlite:/
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['UPLOAD_FOLDER'] = 'static/uploads'
 app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg', 'gif', 'pdf', 'docx', 'pptx'}
+
 
 db.init_app(app)
 login_manager = LoginManager()
@@ -155,6 +157,8 @@ def delete_lecture(lecture_id):
         else:
             flash('Лекция не найдена.', 'danger')
     return redirect(url_for('lectures'))
+
+migrate = Migrate(app, db)
 
 if __name__ == '__main__':
     with app.app_context():
