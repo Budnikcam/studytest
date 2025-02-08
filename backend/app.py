@@ -80,6 +80,7 @@ def register():
     form = RegistrationForm()
     if form.validate_on_submit():
         try:
+            # Убедитесь, что поле email существует в классе User
             user = User(username=form.username.data, email=form.email.data, password=form.password.data)
             db.session.add(user)
             db.session.commit()
