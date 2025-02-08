@@ -11,6 +11,7 @@ COPY requirements.txt ./
 RUN apt-get update && apt-get install -y \
     gcc \
     libpq-dev \
+    sqlite3 \
     && rm -rf /var/lib/apt/lists/*
 
 # Обновите pip и установите зависимости
