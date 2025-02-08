@@ -122,7 +122,7 @@ def logout():
     logout_user()  # Добавлено для выхода из системы
     return redirect(url_for('login'))
 
-@app.route('/lectures')
+@app.route('/lectures.html')
 @login_required
 def lectures():
     lectures = Lecture.query.all()
