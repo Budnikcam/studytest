@@ -17,6 +17,7 @@ app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg', 'gif', 'pdf', 'docx', 
 
 
 db.init_app(app)
+migrate = Migrate(app, db)
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'
@@ -158,7 +159,7 @@ def delete_lecture(lecture_id):
             flash('Лекция не найдена.', 'danger')
     return redirect(url_for('lectures'))
 
-migrate = Migrate(app, db)
+
 
 if __name__ == '__main__':
     with app.app_context():
