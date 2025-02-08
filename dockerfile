@@ -17,7 +17,9 @@ RUN apt-get update && apt-get install -y \
 # Обновите pip и установите зависимости
 RUN pip install --upgrade pip && \
     pip install --no-cache-dir -r requirements.txt && \
-    pip install email-validator 
+    pip install email-validator && \
+    pip install Flask-Migrate
+
 
 
 # Скопируйте остальную часть приложения
