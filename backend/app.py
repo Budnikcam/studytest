@@ -96,10 +96,15 @@ def register():
 def login():
     form = LoginForm()
     if form.validate_on_submit():
-        flash('Вы вошли в систему!', 'success')
-        return redirect(url_for('home'))
-
+        user = User.query.filter_by(email=form.email.data).first()  # Убедитесь, что email существует
+        if user and user.check_password(form.password.data):
+            login_user(user)
+            flash('Вы вошли в систему!', 'success')
+            return redirect(url_for('home'))
+        else:
+            flash('Неверный email или пароль', 'danger')
     return render_template('login.html', form=form)
+
 
 @app.route('/profile', methods=['GET', 'POST'])
 @login_required  
