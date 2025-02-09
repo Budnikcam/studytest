@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Загрузка лекции</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Загрузка лекции</h1>
+    </header>
+    <main>
+        <form action="{{ url_for('upload_lecture') }}" method="post" enctype="multipart/form-data">
+            <div>
+                <label for="lecture_title">Название лекции:</label>
+                <input type="text" id="lecture_title" name="lecture_title" required>
+            </div>
+            <div>
+                <label for="lecture_type">Тип лекции:</label>
+                <input type="text" id="lecture_type" name="lecture_type" required>
+            </div>
+            <div>
+                <label for="lecture_content">Содержание лекции:</label>
+                <textarea id="lecture_content" name="lecture_content" required></textarea>
+            </div>
+            <div>
+                <label for="lecture_files">Файлы лекции:</label>
+                <input type="file" id="lecture_files" name="lecture_files" multiple required>
+            </div>
+            <button type="submit">Загрузить лекцию</button>
+        </form>
+    </main>
+    <footer>
+        <p>&copy; 2025</p>
+    </footer>
+</body>
+</html>
