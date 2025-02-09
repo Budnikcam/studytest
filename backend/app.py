@@ -4,7 +4,7 @@ from flask import Flask, render_template, redirect, url_for, flash, request, sen
 from flask_login import LoginManager, current_user, login_user, logout_user, login_required
 from forms import RegistrationForm, LoginForm
 from flask_migrate import Migrate
-from models import db, User, Lecture
+from models import db, User, Lecture, LectureFile  # Добавлено LectureFile
 import random
 import os
 
@@ -14,7 +14,6 @@ app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URI', 'sqlite:/
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['UPLOAD_FOLDER'] = 'static/uploads'
 app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg', 'gif', 'pdf', 'docx', 'pptx'}
-
 
 db.init_app(app)
 migrate = Migrate(app, db)
@@ -57,7 +56,7 @@ def upload_lecture():
 
             try:
                 file.save(filepath)
-                new_lecture_file = LectureFile(lecture_id=new_lecture.id, filename=filename, filepath=filepath)
+                new_lecture_file = LectureFile(lecture_id=new_lecture.id, filename=filename, filepath=filepath)  # Исправлено на LectureFile
                 db.session.add(new_lecture_file)
             except Exception as e:
                 db.session.rollback()  # Откат транзакции в случае ошибки
@@ -76,7 +75,7 @@ def upload_lecture():
 @app.route('/download/<int:lecture_file_id>')
 @login_required
 def download_lecture(lecture_file_id):
-    lecture_file = LectureFile.query.get_or_404(lecture_file_id)
+    lecture_file = LectureFile.query.get_or_404(lecture_file_id)  # Исправлено на LectureFile
     return send_from_directory(app.config['UPLOAD_FOLDER'], lecture_file.filename, as_attachment=True)
 
 @app.route('/export_users')
@@ -120,7 +119,6 @@ def register():
             flash(f'Произошла ошибка при регистрации: {str(e)}', 'danger')
     return render_template('register.html', form=form)
 
-
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
@@ -133,7 +131,6 @@ def login():
         else:
             flash('Неверный email или пароль', 'danger')
     return render_template('login.html', form=form)
-
 
 @app.route('/profile', methods=['GET', 'POST'])
 @login_required  
@@ -163,12 +160,6 @@ def lectures():
     lectures = Lecture.query.all()
     return render_template('lectures.html', lectures=lectures)
 
-@app.route('/download/<int:lecture_file_id>')
-@login_required
-def download_lecture(lecture_file_id):
-    lecture_file = Lecture.query.get_or_404(lecture_file_id)  # Исправлено на Lecture
-    return send_from_directory(app.config['UPLOAD_FOLDER'], lecture_file.filename, as_attachment=True)
-
 @app.route('/delete_lecture/<int:lecture_id>', methods=['POST'])
 @login_required
 def delete_lecture(lecture_id):
@@ -184,8 +175,6 @@ def delete_lecture(lecture_id):
         else:
             flash('Лекция не найдена.', 'danger')
     return redirect(url_for('lectures'))
-
-
 
 if __name__ == '__main__':
     with app.app_context():
