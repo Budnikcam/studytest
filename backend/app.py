@@ -32,26 +32,52 @@ def allowed_file(filename):
 @app.route('/upload_lecture', methods=['POST'])
 @login_required
 def upload_lecture():
-    title = request.form['lecture_title']
-    lecture_type = request.form['lecture_type']
-    content = request.form['lecture_content']
+    title = request.form.get('lecture_title')
+    lecture_type = request.form.get('lecture_type')
+    content = request.form.get('lecture_content')
     files = request.files.getlist('lecture_files')
+
+    if not title or not lecture_type or not content:
+        flash('Пожалуйста, заполните все обязательные поля.', 'danger')
+        return redirect(url_for('lectures'))
 
     new_lecture = Lecture(title=title, type=lecture_type, content=content)
     db.session.add(new_lecture)
     db.session.flush()
+
     for file in files:
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-            file.save(filepath)
-            new_lecture_file = Lecture(lecture_id=new_lecture.id, filename=filename, filepath=filepath)  # Исправлено на Lecture
-            db.session.add(new_lecture_file)
-            flash(f'Лекция "{title}" загружена успешно!', 'success')
-        else:
-            flash('Ошибка загрузки файла. Убедитесь, что файл имеет правильный формат.', 'danger')
-    db.session.commit()
+
+            # Проверка на существование файла
+            if os.path.exists(filepath):
+                flash(f'Файл с именем "{filename}" уже существует. Пожалуйста, выберите другое имя.', 'danger')
+                continue
+
+            try:
+                file.save(filepath)
+                new_lecture_file = LectureFile(lecture_id=new_lecture.id, filename=filename, filepath=filepath)
+                db.session.add(new_lecture_file)
+            except Exception as e:
+                db.session.rollback()  # Откат транзакции в случае ошибки
+                flash(f'Ошибка при загрузке файла "{filename}": {str(e)}', 'danger')
+                return redirect(url_for('lectures'))
+
+    try:
+        db.session.commit()
+        flash(f'Лекция "{title}" загружена успешно!', 'success')
+    except Exception as e:
+        db.session.rollback()  # Откат транзакции в случае ошибки
+        flash(f'Ошибка при сохранении лекции: {str(e)}', 'danger')
+
     return redirect(url_for('lectures'))
+
+@app.route('/download/<int:lecture_file_id>')
+@login_required
+def download_lecture(lecture_file_id):
+    lecture_file = LectureFile.query.get_or_404(lecture_file_id)
+    return send_from_directory(app.config['UPLOAD_FOLDER'], lecture_file.filename, as_attachment=True)
 
 @app.route('/export_users')
 @login_required
