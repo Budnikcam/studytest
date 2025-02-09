@@ -38,7 +38,7 @@ def upload_lecture():
 
     if not title or not lecture_type or not content:
         flash('Пожалуйста, заполните все обязательные поля.', 'danger')
-        return redirect(url_for('lectures'))
+        return redirect(url_for('lectures.html'))
 
     new_lecture = Lecture(title=title, type=lecture_type, content=content)
     db.session.add(new_lecture)
@@ -61,7 +61,7 @@ def upload_lecture():
             except Exception as e:
                 db.session.rollback()  # Откат транзакции в случае ошибки
                 flash(f'Ошибка при загрузке файла "{filename}": {str(e)}', 'danger')
-                return redirect(url_for('lectures'))
+                return redirect(url_for('lectures.html'))
 
     try:
         db.session.commit()
@@ -70,7 +70,7 @@ def upload_lecture():
         db.session.rollback()  # Откат транзакции в случае ошибки
         flash(f'Ошибка при сохранении лекции: {str(e)}', 'danger')
 
-    return redirect(url_for('lectures'))
+    return redirect(url_for('lectures.html'))
 
 @app.route('/download/<int:lecture_file_id>')
 @login_required
@@ -83,7 +83,7 @@ def download_lecture(lecture_file_id):
 def export_users():
     if not current_user.is_admin:  
         flash('У Вас нет прав для доступа к этой странице.', 'danger')
-        return redirect(url_for('main'))  # Изменено на main
+        return redirect(url_for('main.html'))  # Изменено на main
 
     users = User.query.all()  
 
@@ -113,7 +113,7 @@ def register():
             db.session.add(user)
             db.session.commit()
             flash('Регистрация успешна!', 'success')
-            return redirect(url_for('main'))  # Изменено на main
+            return redirect(url_for('main.html'))  # Изменено на main
         except Exception as e:
             db.session.rollback()  # Откат транзакции в случае ошибки
             flash(f'Произошла ошибка при регистрации: {str(e)}', 'danger')
@@ -127,7 +127,7 @@ def login():
         if user and user.check_password(form.password.data):
             login_user(user)
             flash('Вы вошли в систему!', 'success')
-            return redirect(url_for('main'))  # Изменено на main
+            return redirect(url_for('main.html'))  # Изменено на main
         else:
             flash('Неверный email или пароль', 'danger')
     return render_template('login.html', form=form)
@@ -152,7 +152,7 @@ def profile():
 def logout():
     flash('Вы вышли из системы.', 'info')
     logout_user()  # Добавлено для выхода из системы
-    return redirect(url_for('login'))
+    return redirect(url_for('login.html'))
 
 @app.route('/lectures.html')
 @login_required
@@ -174,7 +174,7 @@ def delete_lecture(lecture_id):
             flash('Лекция успешно удалена!', 'success')
         else:
             flash('Лекция не найдена.', 'danger')
-    return redirect(url_for('lectures'))
+    return redirect(url_for('lectures.html'))
 
 if __name__ == '__main__':
     with app.app_context():
