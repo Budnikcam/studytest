@@ -1,10 +1,11 @@
 import csv
+from datetime import timedelta
 from werkzeug.utils import secure_filename
 from flask import Flask, render_template, redirect, url_for, flash, request, send_from_directory, Response
 from flask_login import LoginManager, current_user, login_user, logout_user, login_required
 from forms import RegistrationForm, LoginForm
 from flask_migrate import Migrate
-from models import db, User, Lecture, LectureFile
+from models import db, User, Lecture, LectureFile  # Добавлено LectureFile
 import os
 
 app = Flask(__name__, template_folder='templates')
@@ -13,6 +14,8 @@ app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URI', 'sqlite:/
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['UPLOAD_FOLDER'] = 'static/uploads'
 app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg', 'gif', 'pdf', 'docx', 'pptx'}
+app.config['REMEMBER_COOKIE_DURATION'] = timedelta(days=30)
+
 
 db.init_app(app)
 migrate = Migrate(app, db)
@@ -48,6 +51,7 @@ def upload_lecture():
             filename = secure_filename(file.filename)
             filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
 
+            # Проверка на существование файла
             if os.path.exists(filepath):
                 flash(f'Файл с именем "{filename}" уже существует. Пожалуйста, выберите другое имя.', 'danger')
                 continue
@@ -57,7 +61,7 @@ def upload_lecture():
                 new_lecture_file = LectureFile(lecture_id=new_lecture.id, filename=filename, filepath=filepath)
                 db.session.add(new_lecture_file)
             except Exception as e:
-                db.session.rollback() 
+                db.session.rollback()  # Откат транзакции в случае ошибки
                 flash(f'Ошибка при загрузке файла "{filename}": {str(e)}', 'danger')
                 return redirect(url_for('lectures'))
 
@@ -65,7 +69,7 @@ def upload_lecture():
         db.session.commit()
         flash(f'Лекция "{title}" загружена успешно!', 'success')
     except Exception as e:
-        db.session.rollback()  
+        db.session.rollback()  # Откат транзакции в случае ошибки
         flash(f'Ошибка при сохранении лекции: {str(e)}', 'danger')
 
     return redirect(url_for('lectures'))
@@ -121,7 +125,7 @@ def login():
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
         if user and user.check_password(form.password.data):
-            login_user(user)
+            login_user(user, remember=form.remember.data)
             flash('Вы вошли в систему!', 'success')
             return redirect(url_for('main'))
         else:
@@ -144,10 +148,10 @@ def profile():
     return render_template('profile.html')
 
 @app.route('/logout')
-@login_required  
+@login_required
 def logout():
-    flash('Вы вышли из системы.', 'info')
     logout_user()
+    flash('Вы вышли из системы.', 'info')
     return redirect(url_for('login'))
 
 @app.route('/lectures.html')
@@ -160,8 +164,8 @@ def lectures():
 @login_required
 def upload_lecture_page():
     if request.method == 'POST':
-        return upload_lecture() 
-    return render_template('upload.html') 
+        return upload_lecture()  # Вызов функции загрузки лекции
+    return render_template('upload.html')  # Отображение страницы загрузки лекции
 
 @app.route('/delete_lecture/<int:lecture_id>', methods=['POST'])
 @login_required
@@ -182,4 +186,4 @@ def delete_lecture(lecture_id):
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
-    app.run(host="0.0.0.0")
+    app.run(debug = True)
