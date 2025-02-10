@@ -22,16 +22,16 @@ class Lecture(db.Model):
     type = db.Column(db.String(50)) 
     content = db.Column(db.Text)
     
-    # Исправлено на правильное имя связи
+    
     files = db.relationship('LectureFile', backref='lecture', lazy=True) 
 
 class LectureFile(db.Model):
-    __tablename__ = 'lecture_files'  # Имя таблицы в базе данных
+    __tablename__ = 'lecture_files' 
 
-    id = db.Column(db.Integer, primary_key=True)  # Уникальный идентификатор
-    lecture_id = db.Column(db.Integer, db.ForeignKey('lecture.id'), nullable=False)  # Внешний ключ на таблицу лекций
-    filename = db.Column(db.String(255), nullable=False)  # Имя файла
-    filepath = db.Column(db.String(255), nullable=False)  # Путь к файлу на сервере
+    id = db.Column(db.Integer, primary_key=True)  
+    lecture_id = db.Column(db.Integer, db.ForeignKey('lecture.id'), nullable=False)  
+    filename = db.Column(db.String(255), nullable=False)  
+    filepath = db.Column(db.String(255), nullable=False)  
 
-    # Связь с моделью Lecture
+   
     lecture = db.relationship('Lecture', back_populates='files')
