@@ -4,7 +4,7 @@ from flask import Flask, render_template, redirect, url_for, flash, request, sen
 from flask_login import LoginManager, current_user, login_user, logout_user, login_required
 from forms import RegistrationForm, LoginForm
 from flask_migrate import Migrate
-from models import db, User, Lecture, LectureFile  # Добавлено LectureFile
+from models import db, User, Lecture, LectureFile
 import os
 
 app = Flask(__name__, template_folder='templates')
@@ -48,7 +48,6 @@ def upload_lecture():
             filename = secure_filename(file.filename)
             filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
 
-            # Проверка на существование файла
             if os.path.exists(filepath):
                 flash(f'Файл с именем "{filename}" уже существует. Пожалуйста, выберите другое имя.', 'danger')
                 continue
@@ -58,7 +57,7 @@ def upload_lecture():
                 new_lecture_file = LectureFile(lecture_id=new_lecture.id, filename=filename, filepath=filepath)
                 db.session.add(new_lecture_file)
             except Exception as e:
-                db.session.rollback()  # Откат транзакции в случае ошибки
+                db.session.rollback() 
                 flash(f'Ошибка при загрузке файла "{filename}": {str(e)}', 'danger')
                 return redirect(url_for('lectures'))
 
@@ -66,7 +65,7 @@ def upload_lecture():
         db.session.commit()
         flash(f'Лекция "{title}" загружена успешно!', 'success')
     except Exception as e:
-        db.session.rollback()  # Откат транзакции в случае ошибки
+        db.session.rollback()  
         flash(f'Ошибка при сохранении лекции: {str(e)}', 'danger')
 
     return redirect(url_for('lectures'))
@@ -161,8 +160,8 @@ def lectures():
 @login_required
 def upload_lecture_page():
     if request.method == 'POST':
-        return upload_lecture()  # Вызов функции загрузки лекции
-    return render_template('upload.html')  # Отображение страницы загрузки лекции
+        return upload_lecture() 
+    return render_template('upload.html') 
 
 @app.route('/delete_lecture/<int:lecture_id>', methods=['POST'])
 @login_required
