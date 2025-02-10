@@ -17,7 +17,8 @@
     </header>
     <main>
         <form method="POST" novalidate>
-            <div>
+            {{ form.hidden_tag() }} 
+            
                 <label for="email">Email:</label>
                 <input type="email" name="email" required class="form-control">
                 {% if form.email.errors %}
@@ -30,6 +31,10 @@
                 {% if form.password.errors %}
                     <div class="error">{{ form.password.errors[0] }}</div>
                 {% endif %}
+            </div>
+            <div>
+                <label for="remember">Запомнить меня:</label>
+                <input type="checkbox" name="remember" id="remember">
             </div>
             <div>
                 <button type="submit" class="btn btn-primary">Войти</button>
