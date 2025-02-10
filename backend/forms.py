@@ -10,6 +10,6 @@ class RegistrationForm(FlaskForm):
     submit = SubmitField('Зарегистрироваться')
 
 class LoginForm(FlaskForm):
-    email = EmailField('Электронная почта', validators=[DataRequired(), Email()])  # Изменено на EmailField
+    email = EmailField('Электронная почта', validators=[DataRequired(), Email()]) 
     password = PasswordField('Пароль', validators=[DataRequired()])
     submit = SubmitField('Войти')
