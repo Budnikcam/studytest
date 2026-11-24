@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<title>Набор в сборную Смоленской области · Богатырское сердце</title>
+<style>
+  @page { size: 338.667mm 190.5mm; margin: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: Arial, Helvetica, sans-serif; background: #000; color: #f5f5f5; }
+  .slide {
+    width: 1280px; height: 720px; background: #0a0a0a;
+    position: relative; overflow: hidden;
+    page-break-after: always; break-after: page;
+  }
+  .brand { position: absolute; top: 26px; left: 48px; color: #c8ff00; font-size: 12px; font-weight: 800; letter-spacing: .1em; }
+  .num { position: absolute; top: 24px; right: 48px; color: #777; font-size: 15px; font-weight: 700; }
+  .foot {
+    position: absolute; left: 48px; right: 48px; bottom: 20px;
+    display: flex; justify-content: space-between; color: #7a7a7a; font-size: 12px;
+  }
+  .eyebrow { color: #c8ff00; font-size: 13px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 10px; }
+  h1 { font-size: 44px; font-weight: 800; line-height: 1.02; letter-spacing: -.03em; margin-bottom: 14px; }
+  .accent { color: #c8ff00; }
+  .gold { color: #f5c518; }
+  .lead { font-size: 18px; line-height: 1.4; color: #d6d6d6; max-width: 580px; }
+  .muted { color: #9a9a9a; }
+  .pill {
+    display: inline-block; border-radius: 999px; padding: 10px 15px;
+    font-size: 13px; font-weight: 800; margin-right: 8px; margin-top: 16px;
+  }
+  .pill.fill { background: #c8ff00; color: #000; }
+  .pill.g { border: 1.5px solid #c8ff00; color: #c8ff00; }
+  .pill.y { border: 1.5px solid #f5c518; color: #f5c518; }
+  .card {
+    background: #151515; border-radius: 12px; padding: 16px 16px 16px 18px;
+    border-left: 4px solid #c8ff00; height: 100%;
+  }
+  .card.alt { border-left-color: #f5c518; }
+  .card h3 { font-size: 17px; margin-bottom: 6px; }
+  .card.alt h3 { color: #f5c518; }
+  .card p { color: #9a9a9a; font-size: 14px; line-height: 1.35; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+  .grid4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .content { position: absolute; left: 48px; right: 48px; top: 68px; bottom: 48px; }
+  .photo { position: absolute; object-fit: cover; }
+  .panel { background: #151515; border-radius: 12px; overflow: hidden; height: 100%; }
+  .panel .hd { padding: 11px 16px; font-size: 12px; font-weight: 800; color: #000; letter-spacing: .04em; }
+  .panel .hd.g { background: #c8ff00; }
+  .panel .hd.y { background: #f5c518; }
+  .panel .bd { padding: 16px; }
+  .panel h3 { font-size: 26px; margin-bottom: 8px; }
+  .panel p { color: #9a9a9a; font-size: 15px; line-height: 1.4; }
+  .stat { background: #151515; border-radius: 12px; padding: 16px; }
+  .stat strong { display: block; font-size: 34px; font-weight: 800; margin-bottom: 6px; line-height: 1; }
+  .stat strong.g { color: #c8ff00; }
+  .stat strong.y { color: #f5c518; }
+  .stat span { color: #9a9a9a; font-size: 13px; line-height: 1.3; display: block; }
+  .step { background: #151515; border-radius: 12px; padding: 20px 14px; text-align: center; height: 100%; }
+  .dot {
+    width: 46px; height: 46px; border-radius: 50%; margin: 0 auto 12px;
+    display: grid; place-items: center; font-weight: 800; font-size: 17px; color: #000; background: #c8ff00;
+  }
+  .dot.y { background: #f5c518; }
+  .dot.d { background: #2a2a2a; color: #fff; }
+  .step h3 { font-size: 16px; margin-bottom: 8px; }
+  .step p { color: #9a9a9a; font-size: 13px; line-height: 1.35; }
+  .cta { background: #c8ff00; color: #000; border-radius: 14px; padding: 18px 20px; }
+  .cta h3 { font-size: 16px; margin-bottom: 8px; }
+  .cta ol { padding-left: 18px; font-size: 15px; font-weight: 700; line-height: 1.5; }
+  .faq-q { color: #c8ff00; font-size: 13px; font-weight: 800; margin-bottom: 2px; }
+  .faq-a { color: #bcbcbc; font-size: 13px; margin-bottom: 11px; line-height: 1.3; }
+  .quote {
+    font-size: 30px; font-weight: 800; line-height: 1.2; letter-spacing: -.02em;
+    max-width: 620px;
+  }
+  .quote:before { content: "«"; color: #c8ff00; }
+  .big-tag {
+    display: inline-block; background: #c8ff00; color: #000;
+    font-size: 13px; font-weight: 800; padding: 8px 12px; border-radius: 8px;
+    letter-spacing: .04em; margin-bottom: 14px;
+  }
+</style>
+</head>
+<body>
+
+<!-- 01 HERO -->
+<section class="slide">
+  <img class="photo" src="assets/orig_p10_0.png" alt="" style="right:0;top:0;width:50%;height:100%;object-position:center 25%;">
+  <div style="position:absolute;right:48%;top:0;width:10%;height:100%;background:linear-gradient(90deg,#0a0a0a,transparent);"></div>
+  <div class="brand">ФФС · СМОЛЕНСКАЯ ОБЛАСТЬ</div>
+  <div class="num">01</div>
+  <div class="content" style="right:52%;">
+    <div class="big-tag">ДЛЯ ВЕТЕРАНОВ СВО</div>
+    <h1>Собираем<br><span class="accent">сборную</span><br>Смоленщины</h1>
+    <p class="lead">Бесплатная секция адаптивного фиджитал-спорта для бойцов, демобилизованных по ранению. Команда своих. Всероссийские старты «Богатырское сердце».</p>
+    <div>
+      <span class="pill fill">Бесплатно</span>
+      <span class="pill g">2× в неделю</span>
+      <span class="pill y">ДС «Юбилейный»</span>
+    </div>
+  </div>
+  <div class="foot"><span>Федерация фиджитал спорта Смоленской области</span><span>Запись: +7 (4812) 374-000, доб. 292</span></div>
+</section>
+
+<!-- 02 WHY YOU -->
+<section class="slide">
+  <div class="brand">ФФС · СМОЛЕНСКАЯ ОБЛАСТЬ</div>
+  <div class="num">02</div>
+  <div class="content">
+    <div class="eyebrow">Зачем это вам</div>
+    <h1>Не «занятие для галочки».<br><span class="accent">Снова команда и цель.</span></h1>
+    <div class="grid3" style="margin-top:18px;height:430px;">
+      <div class="card">
+        <h3>Свои рядом</h3>
+        <p>Тренируетесь с ребятами, которые прошли СВО. Общая задача, общий результат — без лишних объяснений.</p>
+      </div>
+      <div class="card alt">
+        <h3>Нагрузка под вас</h3>
+        <p>Протез, ограничения по движению — не стоп. Тренер подбирает темп: кто-то в движении, кто-то от укрытия.</p>
+      </div>
+      <div class="card">
+        <h3>Голова в тонусе</h3>
+        <p>Реакция, концентрация, быстрые решения. Цифровая часть держит внимание не хуже физической.</p>
+      </div>
+      <div class="card alt">
+        <h3>Азарт старта</h3>
+        <p>Снова выйти на соревнования и проверить себя — уже в новом формате спорта.</p>
+      </div>
+      <div class="card">
+        <h3>Сборная области</h3>
+        <p>Лучшие едут представлять Смоленщину на всероссийском проекте «Богатырское сердце».</p>
+      </div>
+      <div class="card alt">
+        <h3>Всё за наш счёт</h3>
+        <p>Компьютеры, лазертаг-снаряжение и зал предоставляет фиджитал-центр. Вам — справка и желание.</p>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>ФФС Смоленской области</span><span>Опыт в CS2 не нужен — научим с нуля</span></div>
+</section>
+
+<!-- 03 DISCIPLINE -->
+<section class="slide">
+  <img class="photo" src="assets/lasertag_action.png" alt="" style="right:0;top:0;width:42%;height:100%;object-position:center;">
+  <div style="position:absolute;right:40%;top:0;width:8%;height:100%;background:linear-gradient(90deg,#0a0a0a,transparent);"></div>
+  <div class="brand">ФФС · СМОЛЕНСКАЯ ОБЛАСТЬ</div>
+  <div class="num">03</div>
+  <div class="content" style="right:46%;">
+    <div class="eyebrow">Дисциплина</div>
+    <h1>CS2 + лазертаг<br>= <span class="gold">общий результат</span></h1>
+    <p class="lead muted" style="margin-bottom:16px;">Фиджитал — когда одна дисциплина состоит из цифровой и физической частей. Команда выступает в обеих.</p>
+    <div style="display:flex;flex-direction:column;gap:12px;">
+      <div class="panel" style="height:auto;">
+        <div class="hd g">ЧАСТЬ 1 · ЦИФРА</div>
+        <div class="bd">
+          <h3 style="font-size:22px;">Counter-Strike 2</h3>
+          <p>Тактический шутер: точность, связь, игра в связке.</p>
+        </div>
+      </div>
+      <div class="panel" style="height:auto;">
+        <div class="hd y">ЧАСТЬ 2 · ЗАЛ</div>
+        <div class="bd">
+          <h3 style="font-size:22px;" class="gold">Тактический лазертаг</h3>
+          <p>Реальный бой без боли: укрытия, датчики, работа группой.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>ФФС Смоленской области</span><span>Двоеборье «тактическая стрельба»</span></div>
+</section>
+
+<!-- 04 TRAINING -->
+<section class="slide">
+  <div class="brand">ФФС · СМОЛЕНСКАЯ ОБЛАСТЬ</div>
+  <div class="num">04</div>
+  <div class="content">
+    <div class="eyebrow">Тренировка</div>
+    <h1>1,5 часа. Два раза в неделю.<br><span class="accent">Всё снаряжение на месте.</span></h1>
+    <p class="lead muted" style="margin:6px 0 18px;">Фиджитал-центр ДС «Юбилейный» · ул. Черняховского, 29, Смоленск</p>
+    <div class="grid4" style="height:360px;">
+      <div class="step"><div class="dot d">10′</div><h3>Разминка</h3><p>Суставы, координация, разогрев под ваши возможности.</p></div>
+      <div class="step"><div class="dot">35′</div><h3>CS2</h3><p>Стрельба, реакция, тактика, тренировочные игры.</p></div>
+      <div class="step"><div class="dot y">35′</div><h3>Лазертаг</h3><p>Укрытия, штурм и оборона, командные схемы.</p></div>
+      <div class="step"><div class="dot d">10′</div><h3>Разбор</h3><p>Что сработало, что правим, задачи на следующую.</p></div>
+    </div>
+  </div>
+  <div class="foot"><span>ФФС Смоленской области</span><span>Дни и время согласуем с набранной группой</span></div>
+</section>
+
+<!-- 05 PROJECT -->
+<section class="slide">
+  <div class="brand">ФФС · СМОЛЕНСКАЯ ОБЛАСТЬ</div>
+  <div class="num">05</div>
+  <div class="content">
+    <div style="display:grid;grid-template-columns:1fr 1.05fr;gap:22px;height:100%;">
+      <div>
+        <img src="assets/orig_p9_0.png" alt="" style="width:100%;height:290px;object-fit:cover;border-radius:14px;margin-bottom:14px;">
+        <div class="grid2">
+          <div class="stat"><strong class="g">56</strong><span>ветеранов СВО — этап в Сосновом Бору, март 2026</span></div>
+          <div class="stat"><strong class="y">~80</strong><span>участников — этап в Раменском, сентябрь 2026</span></div>
+        </div>
+      </div>
+      <div>
+        <div class="eyebrow">Куда ведём команду</div>
+        <h1 style="font-size:36px;">«Богатырское<br>сердце»</h1>
+        <p class="lead muted" style="margin-bottom:14px;font-size:15px;">Всероссийский проект адаптивного фиджитал-спорта среди ветеранов СВО. Фиджитал на федеральном уровне рассматривают как инструмент реабилитации и возвращения в строй через спорт.</p>
+        <div class="grid2" style="margin-bottom:12px;">
+          <div class="stat"><strong class="g">10+</strong><span>регионов — план турниров на 2027 год</span></div>
+          <div class="stat"><strong class="y">CS2</strong><span>+ лазертаг — наша дисциплина в секции</span></div>
+        </div>
+        <p style="color:#d0d0d0;font-size:14px;line-height:1.35;">Лучшие из смоленской секции войдут в сборную области и представят регион на всероссийских стартах.</p>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>ФФС Смоленской области</span><span>Источники: sport.lenobl.ru · Ассоциация ветеранов СВО · IVBG</span></div>
+</section>
+
+<!-- 06 PRINCIPLE -->
+<section class="slide">
+  <img class="photo" src="assets/laser_wide.png" alt="" style="left:0;top:0;width:100%;height:100%;opacity:.28;object-position:center 40%;">
+  <div style="position:absolute;inset:0;background:linear-gradient(90deg,#0a0a0a 42%,rgba(10,10,10,.75) 70%,rgba(10,10,10,.55));"></div>
+  <div class="brand">ФФС · СМОЛЕНСКАЯ ОБЛАСТЬ</div>
+  <div class="num">06</div>
+  <div class="content">
+    <div class="eyebrow">Принцип проекта</div>
+    <p class="quote" style="margin-top:40px;">
+      Главное — не то, какие физические возможности есть у человека сегодня. Главное — что он способен сделать дальше.»
+    </p>
+    <p style="margin-top:28px;color:#d6d6d6;font-size:18px;max-width:560px;line-height:1.4;">
+      Спортсмены с протезами и без выступают в одних командах и борются за общий результат.
+    </p>
+    <p style="margin-top:24px;color:#f5c518;font-size:15px;font-weight:700;max-width:620px;line-height:1.4;">
+      «Богатырское сердце» — возможность показать себя в соревновательной форме. Фиджитал уже рассматривают как реабилитацию.
+    </p>
+  </div>
+  <div class="foot"><span>ФФС Смоленской области</span><span>Александр Малов, Ассоциация ветеранов СВО Ленобласти</span></div>
+</section>
+
+<!-- 07 PATH -->
+<section class="slide">
+  <div class="brand">ФФС · СМОЛЕНСКАЯ ОБЛАСТЬ</div>
+  <div class="num">07</div>
+  <div class="content">
+    <div class="eyebrow">Путь в сборную</div>
+    <h1>Четыре шага.<br><span class="gold">От сообщения — до старта.</span></h1>
+    <div class="grid4" style="margin-top:28px;height:400px;">
+      <div class="step">
+        <div class="dot">1</div>
+        <h3>Пишете нам</h3>
+        <p>VK, почта или звонок. Имя, телефон, удобные дни. Приносите справку о допуске.</p>
+      </div>
+      <div class="step">
+        <div class="dot">2</div>
+        <h3>Тренируетесь</h3>
+        <p>Осваиваете CS2 и лазертаг. Срабатываетесь с командой. Темп — под вас.</p>
+      </div>
+      <div class="step">
+        <div class="dot">3</div>
+        <h3>Входите в сборную</h3>
+        <p>Из занимающихся формируем команду Смоленской области.</p>
+      </div>
+      <div class="step">
+        <div class="dot y">★</div>
+        <h3>Представляете регион</h3>
+        <p>Всероссийские соревнования «Богатырское сердце».</p>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>ФФС Смоленской области</span><span>Смоленщина на всероссийских стартах</span></div>
+</section>
+
+<!-- 08 CTA -->
+<section class="slide">
+  <div class="brand">ФФС · СМОЛЕНСКАЯ ОБЛАСТЬ</div>
+  <div class="num">08</div>
+  <div class="content">
+    <div style="display:grid;grid-template-columns:1.12fr .95fr;gap:24px;height:100%;">
+      <div>
+        <div class="eyebrow">Запись открыта</div>
+        <h1 style="font-size:36px;">Готовы встать<br>в <span class="accent">команду?</span></h1>
+        <div class="cta" style="margin:12px 0 14px;">
+          <h3>Напишите одним сообщением:</h3>
+          <ol>
+            <li>Имя и телефон</li>
+            <li>Ограничения по движению — если есть, коротко</li>
+            <li>Удобнее: будни вечером или выходные</li>
+          </ol>
+        </div>
+        <div class="grid2">
+          <div class="card alt">
+            <h3>Связь</h3>
+            <p>VK: vk.com/phygital67<br>Email: ffssmol@yandex.ru<br>Тел.: +7 (4812) 374-000, доб. 292</p>
+          </div>
+          <div class="card">
+            <h3>Адрес</h3>
+            <p>Фиджитал-центр<br>ДС «Юбилейный»<br>ул. Черняховского, 29</p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h1 style="font-size:22px;margin-bottom:12px;">Сразу по делу</h1>
+        <div class="faq-q">Сколько стоит?</div>
+        <div class="faq-a">Бесплатно. ПК, лазертаг и зал — за счёт центра.</div>
+        <div class="faq-q">Не играл в компьютерные игры?</div>
+        <div class="faq-a">Опыт не нужен. Научим с нуля. Важнее характер и желание.</div>
+        <div class="faq-q">Протез / ограничения?</div>
+        <div class="faq-a">Не помеха. Нагрузку подберём. Напишите об этом при записи.</div>
+        <div class="faq-q">Что взять на первую тренировку?</div>
+        <div class="faq-a">Справку о допуске к занятиям, спортивную форму, сменную обувь.</div>
+        <div class="faq-q">Когда начинаем?</div>
+        <div class="faq-a">2 раза в неделю по 1,5 часа. Расписание — после набора группы.</div>
+        <p style="margin-top:8px;color:#f5c518;font-weight:800;font-size:15px;line-height:1.35;">
+          Знаете ветерана СВО, которому это нужно?<br>Перешлите ему эту презентацию.
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>ФФС Смоленской области</span><span>Спорт. Команда. Сила духа.</span></div>
+</section>
+
+</body>
+</html>
