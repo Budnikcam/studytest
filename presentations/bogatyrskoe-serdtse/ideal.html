@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Набор в сборную · Богатырское сердце · Смоленск</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0a0a0a;
+      --surface: #161616;
+      --line: #2a2a2a;
+      --text: #f4f4f4;
+      --muted: #9a9a9a;
+      --green: #c8ff00;
+      --yellow: #f5c518;
+      --black: #000;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: Manrope, system-ui, sans-serif;
+      background: #1a1a1a;
+      color: var(--text);
+      line-height: 1.35;
+    }
+
+    .deck {
+      max-width: 420px;
+      margin: 0 auto;
+      padding: 24px 12px 80px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(10, 10, 10, 0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--line);
+      padding: 10px 16px;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .toolbar button {
+      font: inherit;
+      font-size: 13px;
+      font-weight: 700;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      color: var(--text);
+      padding: 8px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .toolbar button.primary {
+      background: var(--green);
+      color: #000;
+      border-color: var(--green);
+    }
+
+    .slide {
+      width: 100%;
+      aspect-ratio: 9 / 16;
+      background: var(--bg);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      padding: 22px 22px 18px;
+    }
+
+    .top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .brand {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .brand-mark {
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      font-size: 18px;
+      line-height: 1;
+    }
+
+    .brand-mark span:first-child { color: var(--green); }
+    .brand-mark span:last-child { color: var(--yellow); }
+
+    .brand small {
+      color: var(--muted);
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      max-width: 140px;
+    }
+
+    .num {
+      color: var(--muted);
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .eyebrow {
+      color: var(--green);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    h1 {
+      font-size: 34px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    h1 .accent { color: var(--green); }
+    h1 .gold { color: var(--yellow); }
+
+    .lead {
+      color: #d8d8d8;
+      font-size: 15px;
+      font-weight: 500;
+      margin-bottom: 18px;
+    }
+
+    .pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: auto;
+    }
+
+    .pill {
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .pill.fill { background: var(--green); color: #000; }
+    .pill.outline {
+      border: 1.5px solid var(--green);
+      color: var(--green);
+    }
+    .pill.gold {
+      border: 1.5px solid var(--yellow);
+      color: var(--yellow);
+    }
+
+    .card {
+      background: var(--surface);
+      border-radius: 12px;
+      padding: 14px 14px 14px 16px;
+      border-left: 3px solid var(--green);
+      margin-bottom: 10px;
+    }
+
+    .card.alt { border-left-color: var(--yellow); }
+    .card h3 {
+      font-size: 15px;
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+    .card.alt h3 { color: var(--yellow); }
+    .card p {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin: 8px 0 14px;
+    }
+
+    .panel {
+      background: var(--surface);
+      border-radius: 12px;
+      padding: 12px;
+      min-height: 150px;
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 5px 8px;
+      border-radius: 6px;
+      margin-bottom: 10px;
+      color: #000;
+    }
+
+    .badge.g { background: var(--green); }
+    .badge.y { background: var(--yellow); }
+
+    .panel h3 {
+      font-size: 18px;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+
+    .panel p {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .formula {
+      margin-top: auto;
+      text-align: center;
+      font-weight: 800;
+      font-size: 14px;
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .formula .eq {
+      background: #fff;
+      color: #000;
+      padding: 6px 10px;
+      border-radius: 6px;
+    }
+
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 6px;
+      flex: 1;
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: 36px 1fr;
+      gap: 12px;
+      align-items: start;
+    }
+
+    .step .dot {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--green);
+      color: #000;
+      font-weight: 800;
+      display: grid;
+      place-items: center;
+    }
+
+    .step.final .dot { background: var(--yellow); }
+
+    .step h3 { font-size: 15px; font-weight: 800; margin-bottom: 2px; }
+    .step p { color: var(--muted); font-size: 13px; }
+
+    .stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .stat {
+      background: var(--surface);
+      border-radius: 12px;
+      padding: 14px;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--green);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .stat:nth-child(2n) strong { color: var(--yellow); }
+    .stat span { color: var(--muted); font-size: 12px; }
+
+    .faq .q {
+      color: var(--green);
+      font-size: 13px;
+      font-weight: 800;
+      margin-bottom: 2px;
+    }
+
+    .faq .a {
+      color: #d0d0d0;
+      font-size: 13px;
+      margin-bottom: 12px;
+    }
+
+    .cta-box {
+      background: var(--green);
+      color: #000;
+      border-radius: 14px;
+      padding: 16px;
+      margin: 8px 0 12px;
+    }
+
+    .cta-box h3 {
+      font-size: 15px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .cta-box ol {
+      padding-left: 18px;
+      font-size: 13px;
+      font-weight: 700;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .contacts {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .contact {
+      background: var(--surface);
+      border-radius: 10px;
+      padding: 12px;
+      border-left: 3px solid var(--yellow);
+    }
+
+    .contact label {
+      display: block;
+      color: var(--yellow);
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .contact strong { font-size: 13px; }
+
+    .note {
+      color: var(--yellow);
+      font-size: 13px;
+      font-weight: 700;
+      margin-top: auto;
+    }
+
+    .foot {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .photo-slot {
+      flex: 1;
+      min-height: 0;
+      border-radius: 14px;
+      background:
+        linear-gradient(180deg, rgba(10,10,10,0.1), rgba(10,10,10,0.92)),
+        radial-gradient(circle at 30% 30%, #2a3a20, #111 60%);
+      border: 1px dashed #3a3a3a;
+      display: flex;
+      align-items: flex-end;
+      padding: 14px;
+      margin-bottom: 14px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .hint {
+      max-width: 420px;
+      margin: 0 auto 8px;
+      color: #aaa;
+      font-size: 13px;
+      padding: 0 4px;
+    }
+
+    @media print {
+      .toolbar, .hint { display: none !important; }
+      body { background: #000; }
+      .deck { max-width: none; padding: 0; gap: 0; }
+      .slide {
+        border: none;
+        border-radius: 0;
+        page-break-after: always;
+        width: 1080px;
+        height: 1920px;
+        aspect-ratio: auto;
+        padding: 64px;
+      }
+      h1 { font-size: 72px; }
+      .lead { font-size: 28px; }
+      .card h3 { font-size: 28px; }
+      .card p, .panel p, .step p, .faq .a { font-size: 22px; }
+      .stat strong { font-size: 48px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="toolbar">
+    <button class="primary" type="button" onclick="window.print()">Печать / PDF</button>
+    <button type="button" onclick="document.getElementById('s1').scrollIntoView({behavior:'smooth'})">К слайдам</button>
+  </div>
+
+  <p class="hint">
+    Идеальный наборный дек: 8 вертикальных слайдов. Перед публикацией замените
+    плейсхолдеры контактов, даты первой тренировки и актуальные сроки турнира.
+  </p>
+
+  <div class="deck">
+    <!-- 01 -->
+    <section class="slide" id="s1">
+      <div class="top">
+        <div class="brand">
+          <div class="brand-mark"><span>ФФ</span><span>С</span></div>
+          <small>Смоленская область · Федерация фиджитал спорта</small>
+        </div>
+        <div class="num">01</div>
+      </div>
+
+      <div class="photo-slot">
+        Фото: команда / спортсмен с протезом на площадке ДС «Юбилейный»
+      </div>
+
+      <div class="eyebrow">Набор в секцию · Смоленск</div>
+      <h1>Собираем<br /><span class="accent">сборную</span><br />области</h1>
+      <p class="lead">
+        Адаптивный фиджитал-спорт для ветеранов СВО, демобилизованных по ранению.
+        Дисциплина — двоеборье «тактическая стрельба».
+      </p>
+      <div class="pills">
+        <span class="pill fill">Бесплатно</span>
+        <span class="pill outline">2 раза в неделю</span>
+        <span class="pill gold">ДС «Юбилейный»</span>
+      </div>
+      <div class="foot">
+        <span>ФФС Смоленской области</span>
+        <span>Запись: +7 (___) ___-__-__</span>
+      </div>
+    </section>
+
+    <!-- 02 -->
+    <section class="slide">
+      <div class="top">
+        <div class="brand">
+          <div class="brand-mark"><span>ФФ</span><span>С</span></div>
+          <small>Смоленская область · Федерация фиджитал спорта</small>
+        </div>
+        <div class="num">02</div>
+      </div>
+      <div class="eyebrow">Дисциплина</div>
+      <h1>Один спорт.<br /><span class="gold">Две части.</span></h1>
+      <p class="lead">
+        Фиджитал — когда команда выступает и в цифре, и в зале. Считается общий результат.
+      </p>
+      <div class="split">
+        <div class="panel">
+          <span class="badge g">Часть 1 · цифра</span>
+          <h3>CS2</h3>
+          <p>Тактический шутер: точность, связь, игра в связке.</p>
+        </div>
+        <div class="panel">
+          <span class="badge y">Часть 2 · зал</span>
+          <h3>Лазертаг</h3>
+          <p>Бой с укрытиями. Без пуль и боли — только датчики.</p>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Всё выдаём</h3>
+        <p>Компьютеры, лазертаг-снаряжение и зал — за счёт центра. Приходите со справкой и формой.</p>
+      </div>
+      <div class="formula">
+        <span>CS2 + лазертаг</span>
+        <span class="eq">= общий результат</span>
+      </div>
+      <div class="foot">
+        <span>ФФС Смоленской области</span>
+        <span>Дисциплина</span>
+      </div>
+    </section>
+
+    <!-- 03 -->
+    <section class="slide">
+      <div class="top">
+        <div class="brand">
+          <div class="brand-mark"><span>ФФ</span><span>С</span></div>
+          <small>Смоленская область · Федерация фиджитал спорта</small>
+        </div>
+        <div class="num">03</div>
+      </div>
+      <div class="eyebrow">Кого ищем</div>
+      <h1>Эта секция — <span class="accent">для вас</span></h1>
+
+      <div class="card">
+        <h3>Ветеран СВО после ранения</h3>
+        <p>Секция создаётся именно под эту задачу.</p>
+      </div>
+      <div class="card alt">
+        <h3>Протез или ограничения — не помеха</h3>
+        <p>На всероссийских стартах 50–70% спортсменов выступают с протезами — в одних командах с остальными.</p>
+      </div>
+      <div class="card">
+        <h3>В CS2 никогда не играли? Нормально</h3>
+        <p>Опыт не нужен. Научим: управление, стрельба, тактика, связь.</p>
+      </div>
+      <div class="card alt">
+        <h3>Нужны справка и желание</h3>
+        <p>Допуск врача к занятиям. Справку подскажем, где оформить в Смоленске.</p>
+      </div>
+      <div class="foot">
+        <span>ФФС Смоленской области</span>
+        <span>Кого ищем</span>
+      </div>
+    </section>
+
+    <!-- 04 -->
+    <section class="slide">
+      <div class="top">
+        <div class="brand">
+          <div class="brand-mark"><span>ФФ</span><span>С</span></div>
+          <small>Смоленская область · Федерация фиджитал спорта</small>
+        </div>
+        <div class="num">04</div>
+      </div>
+      <div class="eyebrow">Тренировка</div>
+      <h1>Как проходит занятие</h1>
+      <p class="lead">2 раза в неделю по 1,5 часа. Темп подбирает тренер под каждого.</p>
+
+      <div class="timeline">
+        <div class="step">
+          <div class="dot">10′</div>
+          <div>
+            <h3>Разминка</h3>
+            <p>Суставы, координация, разогрев под ваши возможности.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="dot">35′</div>
+          <div>
+            <h3>CS2</h3>
+            <p>Стрельба, реакция, тактика, тренировочные игры.</p>
+          </div>
+        </div>
+        <div class="step final">
+          <div class="dot">35′</div>
+          <div>
+            <h3>Лазертаг</h3>
+            <p>Укрытия, штурм и оборона, командные схемы.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="dot">10′</div>
+          <div>
+            <h3>Разбор</h3>
+            <p>Что сработало, что правим, задачи на следующую.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:12px;margin-bottom:0">
+        <h3>Где</h3>
+        <p>Фиджитал-центр, ДС «Юбилейный», ул. Черняховского, 29</p>
+      </div>
+      <div class="foot">
+        <span>ФФС Смоленской области</span>
+        <span>ПК и снаряжение выдаём</span>
+      </div>
+    </section>
+
+    <!-- 05 -->
+    <section class="slide">
+      <div class="top">
+        <div class="brand">
+          <div class="brand-mark"><span>ФФ</span><span>С</span></div>
+          <small>Смоленская область · Федерация фиджитал спорта</small>
+        </div>
+        <div class="num">05</div>
+      </div>
+      <div class="eyebrow">Куда готовим команду</div>
+      <h1>«Богатырское<br />сердце»</h1>
+      <p class="lead">
+        Всероссийский проект адаптивного фиджитал-спорта среди ветеранов СВО.
+        Лучшие из секции входят в сборную Смоленской области.
+      </p>
+      <div class="stats">
+        <div class="stat">
+          <strong>50–70%</strong>
+          <span>спортсменов в командах — с протезами</span>
+        </div>
+        <div class="stat">
+          <strong>до 8</strong>
+          <span>человек в составе региональной команды</span>
+        </div>
+        <div class="stat">
+          <strong>2</strong>
+          <span>наша дисциплина: двоеборье «тактическая стрельба»</span>
+        </div>
+        <div class="stat">
+          <strong>____</strong>
+          <span>актуальная дата ближайшего старта (вписать)</span>
+        </div>
+      </div>
+      <p class="note" style="margin-top:14px">
+        Не про «какие возможности сегодня» — про то, что сможете сделать дальше.
+      </p>
+      <div class="foot">
+        <span>ФФС Смоленской области</span>
+        <span>Цель</span>
+      </div>
+    </section>
+
+    <!-- 06 -->
+    <section class="slide">
+      <div class="top">
+        <div class="brand">
+          <div class="brand-mark"><span>ФФ</span><span>С</span></div>
+          <small>Смоленская область · Федерация фиджитал спорта</small>
+        </div>
+        <div class="num">06</div>
+      </div>
+      <div class="eyebrow">Путь в сборную</div>
+      <h1>От первой тренировки — до <span class="gold">стартов</span></h1>
+
+      <div class="timeline" style="margin-top:18px">
+        <div class="step">
+          <div class="dot">1</div>
+          <div>
+            <h3>Записываетесь</h3>
+            <p>Пишете в Telegram / звоните. Приносите справку о допуске.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="dot">2</div>
+          <div>
+            <h3>Тренируетесь в группе</h3>
+            <p>Осваиваете CS2 и лазертаг, срабатываетесь с командой.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="dot">3</div>
+          <div>
+            <h3>Входите в сборную области</h3>
+            <p>Из занимающихся формируем команду Смоленской области.</p>
+          </div>
+        </div>
+        <div class="step final">
+          <div class="dot">★</div>
+          <div>
+            <h3>Представляете Смоленщину</h3>
+            <p>На всероссийских соревнованиях «Богатырское сердце».</p>
+          </div>
+        </div>
+      </div>
+      <div class="foot">
+        <span>ФФС Смоленской области</span>
+        <span>Путь</span>
+      </div>
+    </section>
+
+    <!-- 07 -->
+    <section class="slide">
+      <div class="top">
+        <div class="brand">
+          <div class="brand-mark"><span>ФФ</span><span>С</span></div>
+          <small>Смоленская область · Федерация фиджитал спорта</small>
+        </div>
+        <div class="num">07</div>
+      </div>
+      <div class="eyebrow">Частые вопросы</div>
+      <h1>Отвечаем сразу</h1>
+
+      <div class="faq">
+        <div class="q">Сколько стоит?</div>
+        <div class="a">Бесплатно. ПК, лазертаг и зал предоставляет центр.</div>
+
+        <div class="q">Я не играл в компьютерные игры</div>
+        <div class="a">Опыт не нужен. Важнее желание и командный характер.</div>
+
+        <div class="q">У меня протез / ограничения</div>
+        <div class="a">Не помеха. Нагрузку подберём. Напишите об ограничениях при записи.</div>
+
+        <div class="q">Что взять с собой?</div>
+        <div class="a">Справку о допуске, спортивную одежду, сменную обувь.</div>
+
+        <div class="q">Когда тренировки?</div>
+        <div class="a">2×1,5 ч. Окна: будни вечером или выходные — выберите при записи. Старт группы: ____.</div>
+      </div>
+      <div class="foot">
+        <span>ФФС Смоленской области</span>
+        <span>Вопросы</span>
+      </div>
+    </section>
+
+    <!-- 08 -->
+    <section class="slide">
+      <div class="top">
+        <div class="brand">
+          <div class="brand-mark"><span>ФФ</span><span>С</span></div>
+          <small>Смоленская область · Федерация фиджитал спорта</small>
+        </div>
+        <div class="num">08</div>
+      </div>
+      <div class="eyebrow">Запись</div>
+      <h1>Хотите в <span class="accent">команду?</span></h1>
+
+      <div class="contacts">
+        <div class="contact">
+          <label>Telegram</label>
+          <strong>@_____</strong>
+        </div>
+        <div class="contact">
+          <label>Телефон</label>
+          <strong>+7 (___) ___-__-__</strong>
+        </div>
+      </div>
+
+      <div class="cta-box">
+        <h3>Напишите одним сообщением:</h3>
+        <ol>
+          <li>Имя и телефон</li>
+          <li>Ограничения по движению — если есть, коротко</li>
+          <li>Удобнее: будни вечером или выходные</li>
+        </ol>
+      </div>
+
+      <div class="card alt" style="margin-bottom:8px">
+        <h3>Где</h3>
+        <p>Фиджитал-центр, ДС «Юбилейный», Смоленск, ул. Черняховского, 29</p>
+      </div>
+      <div class="card" style="margin-bottom:8px">
+        <h3>Когда</h3>
+        <p>2 раза в неделю по 1,5 часа. Первая тренировка / старт набора: ____</p>
+      </div>
+
+      <p class="note">Знаете ветерана, которому это нужно? Перешлите ему эту презентацию.</p>
+      <div class="foot">
+        <span>ФФС Смоленской области</span>
+        <span>Спорт. Команда. Сила духа.</span>
+      </div>
+    </section>
+  </div>
+</body>
+</html>
